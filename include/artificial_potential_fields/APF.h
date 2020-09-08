@@ -21,6 +21,7 @@
 #include <dynamic_reconfigure/server.h>
 #include <artificial_potential_fields/setAPFConfig.h>
 #include <mavros_msgs/AttitudeTarget.h>
+#include <pcl/filters/extract_indices.h>
 
 using namespace geometry_msgs;
 using namespace std;
