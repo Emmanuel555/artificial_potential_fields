@@ -45,7 +45,7 @@ void laserCallback(const sensor_msgs::LaserScan::ConstPtr& scan){
     pcl::PassThrough<pcl::PointXYZ> pass;
     pass.setInputCloud(cloud);
     pass.setFilterFieldName("z");
-    pass.setFilterLimits(0.2, 100); // filter the floor; 0.1 is the treshold
+    pass.setFilterLimits(0.2, 2); // filter the floor; 0.1 is the treshold
     pass.filter(*cloud);
 }
 
