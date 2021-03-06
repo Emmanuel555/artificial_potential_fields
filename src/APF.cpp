@@ -29,24 +29,24 @@ void odometryCallback(const nav_msgs::OdometryConstPtr& odometry_msg){
 //}
 
 
-double distance(pcl::PointXYZ p){
-    return sqrt(pow(p.x, 2) + pow(p.y, 2) + pow(p.z, 2));
-}
+//double distance(pcl::PointXYZ p){
+//    return sqrt(pow(p.x, 2) + pow(p.y, 2) + pow(p.z, 2));
+//}
 
-void filterSphere(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud){
-    pcl::PointIndices::Ptr inliers(new pcl::PointIndices());
-    pcl::ExtractIndices<pcl::PointXYZ> extract;
+//void filterSphere(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud){
+//    pcl::PointIndices::Ptr inliers(new pcl::PointIndices());
+//    pcl::ExtractIndices<pcl::PointXYZ> extract;
     //ROS_INFO_STREAM("[APF] cloud->size() = " << cloud->size());
-    for(int i = 0; i < cloud->size(); ++i)
-        if(distance(cloud->at(i)) <= UAV_radius)
-            inliers->indices.push_back(i);
-    extract.setInputCloud(cloud);
-    extract.setIndices(inliers);
-    extract.setNegative(true);
-    extract.filter(*cloud);
+//    for(int i = 0; i < cloud->size(); ++i)
+//        if(distance(cloud->at(i)) <= UAV_radius)
+//            inliers->indices.push_back(i);
+//    extract.setInputCloud(cloud);
+//    extract.setIndices(inliers);
+//    extract.setNegative(true);
+//    extract.filter(*cloud);
     //ROS_INFO_STREAM("[APF] inliers->indices.size() = " << inliers->indices.size());
     //ROS_INFO_STREAM("[APF] cloud->size() = " << cloud->size());
-}
+//}
 
 
 void bodyrateCallback(const mavros_msgs::AttitudeTarget& command_msg){
@@ -58,7 +58,7 @@ void laserCallback(const sensor_msgs::LaserScan::ConstPtr& scan){
     projector.projectLaser(*scan, msg_cloud);
     pcl::fromROSMsg(msg_cloud, *cloud);
 
-    filterSphere(cloud); // filters out points inside the bounding sphere
+    // filterSphere(cloud); // filters out points inside the bounding sphere
 
     transformation << R(0, 0), R(0, 1), R(0, 2), position(0), R(1, 0), R(1, 1), R(1, 2), position(1), R(2, 0), R(2, 1), R(2, 2), height, 0, 0, 0, 1;
     pcl::transformPointCloud(*cloud, *cloud, transformation); // rotates the cloud the world frame

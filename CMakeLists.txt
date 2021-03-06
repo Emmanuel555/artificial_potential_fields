@@ -5,7 +5,7 @@ find_package(catkin REQUIRED COMPONENTS roscpp roslib dynamic_reconfigure std_ms
 find_package(PCL 1.2 REQUIRED)
 find_package(gazebo REQUIRED)
 find_package(cmake_modules REQUIRED)
-find_package(Eigen REQUIRED)
+find_package(Eigen3 REQUIRED)
 
 generate_dynamic_reconfigure_options(cfg/setAPF.cfg)
 
@@ -17,8 +17,11 @@ link_directories(${PCL_LIBRARY_DIRS})
 add_definitions(${PCL_DEFINITIONS})
 
 add_executable(apf src/APF.cpp)
+add_executable(apf_aim src/APF_aim.cpp)
 target_link_libraries(apf ${catkin_LIBRARIES})
+target_link_libraries(apf_aim ${catkin_LIBRARIES})
 add_dependencies(apf ${PROJECT_NAME}_gencfg)
+add_dependencies(apf_aim ${PROJECT_NAME}_gencfg)
 
 add_executable(rviz_force_viewer src/rviz_force_viewer.cpp)
 target_link_libraries(rviz_force_viewer ${catkin_LIBRARIES})
